@@ -625,7 +625,7 @@ func oapiSchemaToGoType(schema *openapi3.Schema, path []string, outSchema *Schem
 			outSchema.GoType = "json.RawMessage"
 			outSchema.SkipOptionalPointer = true
 		case "uuid":
-			outSchema.GoType = "openapi_types.UUID"
+			outSchema.GoType = "uuid.UUID"
 		case "binary":
 			outSchema.GoType = "openapi_types.File"
 		default:
