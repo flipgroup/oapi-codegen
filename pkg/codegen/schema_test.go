@@ -47,7 +47,7 @@ func TestProperty_GoTypeDef(t *testing.T) {
 				},
 				Required: false,
 			},
-			want: "*int",
+			want: "int",
 		},
 
 		{
@@ -102,7 +102,7 @@ func TestProperty_GoTypeDef(t *testing.T) {
 				Required: false,
 				Nullable: false,
 			},
-			want: "*int",
+			want: "int",
 		},
 
 		{
@@ -261,7 +261,7 @@ func TestProperty_GoTypeDef_nullable(t *testing.T) {
 				},
 				Required: false,
 			},
-			want: "*int",
+			want: "int",
 		},
 
 		{
@@ -322,7 +322,7 @@ func TestProperty_GoTypeDef_nullable(t *testing.T) {
 				Required: false,
 				Nullable: false,
 			},
-			want: "*int",
+			want: "int",
 		},
 
 		{

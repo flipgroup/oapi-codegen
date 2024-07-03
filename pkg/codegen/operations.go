@@ -135,6 +135,10 @@ func (pd ParameterDefinition) GoName() string {
 	return SchemaNameToTypeName(goName)
 }
 
+func (pd ParameterDefinition) IsArray() bool {
+	return pd.Schema.ArrayType != nil
+}
+
 func (pd ParameterDefinition) IndirectOptional() bool {
 	return !pd.Required && !pd.Schema.SkipOptionalPointer
 }

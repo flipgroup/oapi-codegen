@@ -108,10 +108,9 @@ func (p Property) GoTypeDef() string {
 	if globalState.options.OutputOptions.NullableType && p.Nullable {
 		return "nullable.Nullable[" + typeDef + "]"
 	}
-	if !p.Schema.SkipOptionalPointer &&
-		(!p.Required || p.Nullable ||
-			(p.ReadOnly && (!p.Required || !globalState.options.Compatibility.DisableRequiredReadOnlyAsPointer)) ||
-			p.WriteOnly) {
+	if p.Nullable ||
+		(p.ReadOnly && (!p.Required || !globalState.options.Compatibility.DisableRequiredReadOnlyAsPointer)) ||
+		p.WriteOnly {
 
 		typeDef = "*" + typeDef
 	}
@@ -696,14 +695,8 @@ func GenFieldsFromProperties(props []Property) []string {
 
 		field += fmt.Sprintf("    %s %s", goFieldName, p.GoTypeDef())
 
-		shouldOmitEmpty := (!p.Required || p.ReadOnly || p.WriteOnly) &&
+		omitEmpty := (!p.Required || p.ReadOnly || p.WriteOnly) &&
 			(!p.Required || !p.ReadOnly || !globalState.options.Compatibility.DisableRequiredReadOnlyAsPointer)
-
-		omitEmpty := !p.Nullable && shouldOmitEmpty
-
-		if p.Nullable && globalState.options.OutputOptions.NullableType {
-			omitEmpty = shouldOmitEmpty
-		}
 
 		// Support x-omitempty
 		if extOmitEmptyValue, ok := p.Extensions[extPropOmitEmpty]; ok {
